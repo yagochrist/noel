@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Carta com Envelope</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #cfe4ff, #e5f0ff);
+            font-family: Georgia, serif;
+        }
+
+        /* ENVELOPE FECHADO (PEGADO DO SEGUNDO MODELO) */
+        .envelope {
+            width: 330px;
+            height: 230px;
+            background: #ffffff;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.22);
+            border-radius: 8px;
+            overflow: visible;
+        }
+
+        /* Aba superior realista */
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: #ffffff;
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            box-shadow: inset 0 -6px 12px rgba(0,0,0,0.08);
+            transition: transform .7s ease;
+            transform-origin: top;
+            z-index: 3;
+        }
+
+        /* Laterais do envelope (dobras verdadeiras) */
+        .lado-esq,
+        .lado-dir {
+            position: absolute;
+            top: 40%;
+            width: 50%;
+            height: 60%;
+            background: #f7f7f7;
+        }
+
+        .lado-esq {
+            left: 0;
+            clip-path: polygon(0 0, 100% 50%, 0 100%);
+        }
+
+        .lado-dir {
+            right: 0;
+            clip-path: polygon(100% 0, 100% 100%, 0 50%);
+        }
+
+        /* Selo redondo */
+        .selo {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #f7d778 0%, #d4a135 60%, #b8872a 100%);
+            border-radius: 50%;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.28), inset 0 3px 6px rgba(255,255,255,0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "Brush Script MT", cursive;
+            font-size: 26px;
+            color: #5c4215;
+            font-weight: bold;
+            z-index: 4;
+        }
+
+        /* CARTA (PEGADA DO PRIMEIRO MODELO — NÃO ALTEREI) */
+        .carta {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-30px);
+            width: 260px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 14px;
+            box-shadow: 0 14px 35px rgba(31,38,49,0.18);
+            opacity: 0;
+            transition: transform 0.8s ease, opacity 0.8s ease;
+            z-index: 10;
+            background-image: url('paper-texture.png');
+            background-size: cover;
+        }
+
+        .carta h1 { text-align: center; color: #b1271b; font-size: 20px; }
+        .carta p { font-size: 16px; color: #333; text-align: justify; }
+        .assinatura { margin-top: 20px; text-align: right; font-style: italic; }
+
+        /* ANIMAÇÃO ABRIR */
+        .aberto .flap {
+            transform: rotateX(180deg);
+        }
+        .aberto .carta {
+            transform: translateX(-50%) translateY(-30px);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="envelope" onclick="abrirCarta()" id="env">
+    <div class="flap"></div>
+    <div class="lado-esq"></div>
+    <div class="lado-dir"></div>
+    <div class="selo">YC</div>
+
+    <div class="carta">
+        <h1>Carta para o Papai Noel</h1>
+        <p>Querido Papai Noel,</p>
+        <p>Neste Natal, gostaria de pedir um presente muito especial: a chance de passar um dia inteiro ao lado da Emily Werkhausen, só nós dois, para aproveitar momentos únicos, conversar com calma e viver um dia realmente especial.</p>
+        <p>Agradeço desde já por ler minha carta e por todo o carinho que o senhor leva ao mundo.</p>
+        <p class="assinatura">Com carinho,<br>Yago</p>
+    </div>
+</div>
+
+<script>
+function abrirCarta() {
+    document.getElementById('env').classList.toggle('aberto');
+}
+</script>
+
+</body>
+</html>
